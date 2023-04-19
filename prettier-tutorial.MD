@@ -57,7 +57,20 @@ Isso irá configurar o VS Code para formatar automaticamente o código quando vo
 
 ### Passo 3: Use o Prettier
 
-Para usar o Prettier, basta abrir um arquivo e digitar seu código normalmente, quando você salvar (ou seja usar o Ctrl + S), o arquivo será formatado para o padrão que estamos utilizando no projeto. Esse padrão é definido no arquivo ._prettierrc.json_ que já está no repositório do projeto, você pode verificar como cada atributo do arquivo está sendo formatado nele
+Para usar o Prettier, basta abrir um arquivo e digitar seu código normalmente, quando você salvar (ou seja usar o Ctrl + S), o arquivo será formatado para o padrão que estamos utilizando no projeto. Esse padrão é definido no arquivo ._prettierrc.json_ que já está no repositório do projeto. Esse é o conteúdo do arquivo:
+
+```json
+{
+  "printWidth": 80,
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": false,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "arrowParens": "always"
+}
+```
 
 #
 
