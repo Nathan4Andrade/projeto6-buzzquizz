@@ -1,13 +1,13 @@
 axios.defaults.headers.common['Authorization'] = 'BtXNJoiFoeQE4oiiOTK7wiYj';
 
 let currentQuizz; // define o quizz escolhido para responder
-let screenContainer = document.querySelector('.home-screen'); // define uma variavel que armazena o conteudo
+let screenContainer = document.querySelector('.screen'); // define uma variavel que armazena o conteudo atual da tela
 let arrayQuizzes; // lista de quizzes
 
 getAllQuizzes(); //inicia a aplicação realizando um get de todos os quizzes e enviando no promise.then a renderização
 
 function showForm() {
-  document.querySelector('.home-screen').classList.add('hide');
+  document.querySelector('.screen').classList.add('hide');
   document.querySelector('.create-quizz').classList.remove('hide');
 }
 
@@ -26,7 +26,6 @@ function renderAllQuizzes(resp) {
   arrayQuizzes = resp.data;
 
   let quizzGallery = document.querySelector('.all-quizzes .quizz-gallery');
-  console.log(quizzGallery);
 
   for (let i = 0; i < arrayQuizzes.length; i++) {
     quizzGallery.innerHTML += `
@@ -39,11 +38,12 @@ function renderAllQuizzes(resp) {
   }
 }
 
-//renderiza a tela inicial
+//renderiza a tela inicial (Tela 1 do Figma)
 function renderHomeScreen() {
   screenContainer.innerHTML = '';
 
   screenContainer.innerHTML = `
+    
         <div class="quizzes-user">
             <div class="your-quizzes">
                 <h2>Seus Quizzes</h2>
@@ -74,7 +74,87 @@ function getQuizz(id) {
   promise.then(displayQuizz);
 }
 
-//exibe o quizz de acordo com o id
+//exibe o quizz de acordo com o id (Tela 2 de acordo com o figma)
 function displayQuizz(quizz) {
+  currentQuizz = quizz.data;
   screenContainer.innerHTML = '';
+  generateBanner();
+  generateQuestions();
+}
+
+function generateBanner() {
+  screenContainer.innerHTML += `
+    <div class="banner-quizz">
+        <img src="${currentQuizz.image}">
+        <p>${currentQuizz.title}</p>
+    </div>
+    `;
+}
+
+function generateQuestions() {
+  for (let i = 0; i < currentQuizz.questions.length; i++) {
+    screenContainer.innerHTML += `
+        <div class="question-container">
+            <div class="question${i} questions">
+                <p>${currentQuizz.questions[i].title}</p>
+            </div>
+            <div class="options${i} options">
+            </div>
+        </div>`;
+
+    generateOptions(i);
+    document.querySelector(
+      `.question${i}`
+    ).style.backgroundColor = `${currentQuizz.questions[i].color}`;
+  }
+
+  screenContainer.innerHTML += `
+        <div class="question-container result-box hidden"></div>
+    `;
+
+  generateButtons();
+}
+
+function generateOptions(questionID) {
+  let divOptions = document.querySelector(`.screen .options${questionID}`);
+
+  let answers = currentQuizz.questions[questionID].answers;
+  answers = answers.sort(comparador);
+
+  for (let i = 0; i < answers.length; i++) {
+    if (answers[i].isCorrectAnswer) {
+      divOptions.innerHTML += `
+            <div class="option correct" onclick="selectOption(this)">
+                <img src="${answers[i].image}">
+                <p>${answers[i].text}</p>
+            </div>
+        `;
+    } else {
+      divOptions.innerHTML += `
+            <div class="option" onclick="selectOption(this)">
+                <img src="${answers[i].image}">
+                <p>${answers[i].text}</p>
+            </div>
+        `;
+    }
+  }
+
+  return divOptions;
+}
+
+function generateButtons() {
+  screenContainer.innerHTML += `
+        <div class="buttons hidden">
+            <div class="btn-restart" onclick="restartQuizz()">
+                <p>Reiniciar Quizz</p>
+            </div>
+            <div class="goto-home" onclick="gotoHome()">
+                <p>Volta para home</p>
+            </div>
+        </div>
+    `;
+}
+
+function comparador() {
+  return Math.random() - 0.5;
 }

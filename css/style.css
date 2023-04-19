@@ -34,8 +34,7 @@ header h1 {
 
 main {
   display: flex;
-  margin: 0 16px;
-  margin-top: 146px;
+  margin-top: 69px;
 }
 
 img {
@@ -43,10 +42,10 @@ img {
 }
 
 /* tela inicial
-".home-screen"
+".screen"
 */
 
-.home-screen {
+.screen {
   margin: 0 auto;
 }
 
@@ -90,6 +89,7 @@ img {
 .your-quizzes {
   display: flex;
   align-items: center;
+  margin-top: 77px;
 }
 
 .your-quizzes ion-icon {
@@ -104,7 +104,7 @@ img {
   margin-top: 48px;
 }
 
-.home-screen h2 {
+.screen h2 {
   font-weight: 700;
   font-size: 20px;
   line-height: 23px;
@@ -239,9 +239,90 @@ img {
   display: none;
 }
 
+/* tela 2*/
+
+.banner-quizz {
+  width: 100vw;
+  height: 227px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-quizz img {
+  width: 100%;
+  height: 227px;
+  filter: brightness(40%);
+}
+
+.banner-quizz p {
+  font-weight: 400;
+  font-size: 39px;
+  line-height: 45px;
+  color: #ffffff;
+  position: absolute;
+  word-break: break-word;
+}
+
+.question-container {
+  width: 759px;
+  height: auto;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
+  padding: 18px;
+  margin: 42px auto auto;
+}
+
+.result-box > div > p {
+  text-align: center;
+}
+
+.questions {
+  width: 688px;
+  height: 137px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 12px auto 0;
+}
+
+.questions p {
+  font-weight: 700;
+  font-size: 23px;
+  color: #ffffff;
+}
+
+.question-container .options {
+  width: 688px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 auto 12px;
+}
+
+.question-container .option {
+  margin-top: 20px;
+  width: 329px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.question-container .option img {
+  width: 329px;
+  height: 175px;
+}
+
+.question-container .option p {
+  font-weight: 700;
+  font-size: 20px;
+  margin-top: 12px;
+  color: #000000;
+}
+
 @media (max-width: 1100px) {
   main {
-    margin-top: 100px;
+    margin-top: 69px;
   }
 
   .no-quizz {
@@ -253,6 +334,7 @@ img {
     margin-left: auto;
     width: 340px;
     justify-content: space-between;
+    margin-top: 100px;
   }
   .quizzes-user {
     display: flex;
