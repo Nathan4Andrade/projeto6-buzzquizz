@@ -1,11 +1,11 @@
-*{
+* {
   box-sizing: border-box;
 }
 
 body {
   font-family: 'Roboto', sans;
   font-style: normal;
-  background: #FAFAFA;
+  background: #fafafa;
 }
 
 header {
@@ -38,9 +38,17 @@ main {
   margin-top: 146px;
 }
 
+img {
+  object-fit: cover;
+}
+
 /* tela inicial
 ".home-screen"
 */
+
+.home-screen {
+  margin: 0 auto;
+}
 
 .no-quizz {
   width: 1051px;
@@ -50,8 +58,8 @@ main {
   align-items: center;
   margin-left: auto;
   margin-right: auto;
-  border: 1px dashed #D5D5D5;
-  border-radius: 5px; 
+  border: 1px dashed #d5d5d5;
+  border-radius: 5px;
 }
 
 .no-quizz p {
@@ -60,21 +68,21 @@ main {
   width: 250px;
   height: 107px;
   text-align: center;
-  color: #B9B9B9;
+  color: #b9b9b9;
   margin-top: 7px;
   margin-bottom: 0;
   padding-top: 30px;
   padding-bottom: 30px;
 }
 
-.no-quizz button {   
+.no-quizz button {
   font-size: 21px;
   line-height: 25px;
-  text-align: center;    
-  color: #EC362D;
+  text-align: center;
+  color: #ec362d;
   width: 151px;
-  height: 40px;   
-  border: 1px dashed #EC362D;
+  height: 40px;
+  border: 1px dashed #ec362d;
   border-radius: 50px;
   margin-bottom: 33px;
 }
@@ -87,12 +95,13 @@ main {
 .your-quizzes ion-icon {
   width: 31px;
   height: 30px;
-  color: #EC362D;
+  color: #ec362d;
   margin-left: 26px;
 }
 
 .all-quizzes {
   margin: 0 auto;
+  margin-top: 48px;
 }
 
 .home-screen h2 {
@@ -101,14 +110,14 @@ main {
   line-height: 23px;
 }
 
-.quiz-gallery {
+.quizz-gallery {
   width: 1051px;
   margin-top: 13px;
   display: flex;
   flex-wrap: wrap;
 }
 
-.quiz {
+.quizz {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -124,7 +133,7 @@ main {
   background-color: blue;
 }
 
-.quiz span {
+.quizz span {
   height: 54px;
   font-weight: 400;
   font-size: 19px;
@@ -152,11 +161,18 @@ main {
   );
 }
 
+.quizz img {
+  height: 181px;
+  width: 340px;
+
+  border-radius: 5px;
+}
+
 .create-quizz {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%
+  width: 100%;
 }
 
 .create-quizz form {
@@ -171,7 +187,7 @@ main {
   align-items: center;
   width: 600px;
   height: 256px;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
   padding-top: 21px;
   padding-bottom: 15px;
@@ -180,9 +196,9 @@ main {
 
 .create-quizz input {
   width: 564px;
-  height: 46px; 
-  background: #FFFFFF;
-  border: 1px solid #D1D1D1;
+  height: 46px;
+  background: #ffffff;
+  border: 1px solid #d1d1d1;
   border-radius: 5px;
   margin-bottom: 9px;
   padding-left: 23px;
@@ -193,8 +209,8 @@ main {
   height: 22px;
   font-style: italic;
   font-size: 19px;
-  line-height: 22px; 
-  color: #BABABA;
+  line-height: 22px;
+  color: #bababa;
   overflow: visible;
 }
 
@@ -208,15 +224,15 @@ main {
 .create-quizz button {
   width: 369px;
   height: 54px;
-  background: #EC362D;
-  border-radius: 15px; 
+  background: #ec362d;
+  border-radius: 15px;
   border: none;
   margin-top: 85px;
   font-weight: 400;
   font-size: 21px;
   line-height: 25px;
-  text-align: center; 
-  color: #FFF5F4;
+  text-align: center;
+  color: #fff5f4;
 }
 
 .hide {
@@ -224,20 +240,19 @@ main {
 }
 
 @media (max-width: 1100px) {
-
   main {
     margin-top: 100px;
   }
 
   .no-quizz {
-      width: 340px;
+    width: 340px;
   }
-  
+
   .your-quizzes {
-      margin-right: auto;
-      margin-left: auto;
-      width: 340px;
-      justify-content: space-between;
+    margin-right: auto;
+    margin-left: auto;
+    width: 340px;
+    justify-content: space-between;
   }
   .quizzes-user {
     display: flex;
@@ -251,14 +266,14 @@ main {
   }
 
   .create-quizz form button {
-    width: 324px
+    width: 324px;
   }
-  .form, .create-quizz {
+  .form,
+  .create-quizz {
     width: 100%;
   }
 
   .form-questions {
-    width: 375px;   
+    width: 375px;
   }
-  
 }
