@@ -11,7 +11,6 @@ function showForm() {
   document.querySelector('.create-quizz').classList.remove('hide');
 }
 
-
 // get todos os quizzes da api
 function getAllQuizzes() {
   let promise = axios.get(
@@ -31,9 +30,9 @@ function renderAllQuizzes(resp) {
 
   for (let i = 0; i < arrayQuizzes.length; i++) {
     quizzGallery.innerHTML += `
-    <div class="quizz">
+    <div class="quizz" onclick="getQuizz(${arrayQuizzes[i].id})">
         <img src="${arrayQuizzes[i].image}">
-        <div class="degrade" onclick="getQuizz(${arrayQuizzes[i].id})"></div>
+        <div class="degrade"></div>
         <span>${arrayQuizzes[i].title}</span>
     </div>
     `;
