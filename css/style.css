@@ -35,19 +35,18 @@ header h1 {
 main {
   display: flex;
   margin-top: 69px;
+  padding-bottom: 85px;
 }
 
 img {
   object-fit: cover;
 }
 
-/* tela inicial
-".screen"
-*/
-
 .screen {
   margin: 0 auto;
 }
+
+/* tela 1 */
 
 .no-quizz {
   width: 1051px;
@@ -249,6 +248,57 @@ img {
   margin-top: 12px;
   color: #000000;
 }
+
+/* Answers */
+
+.not-selected {
+  opacity: 0.3;
+}
+
+.question-container .validated-option p {
+  color: #FF4B4B;
+}
+
+.question-container .correct-option p {
+  color: #009C22;
+}
+
+.result-box > div {
+  background-color: #EC362D;
+  height: 99px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 23px;
+  color: #FFFFFF;
+  overflow-wrap: anywhere;
+}
+
+.result-box .container-box {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: transparent;
+  margin-top: 20px;
+  overflow-wrap: anywhere;
+}
+
+.container-box img {
+  width: 364px;
+  height: 273px;
+}
+
+.container-box p {
+  font-weight: 700;
+  font-size: 19px;
+  color: #484848;
+  margin-left: 21px;
+}
+
+
 
 /* Create quizz page */
 
