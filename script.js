@@ -269,6 +269,50 @@ function generateButtons() {
     `;
 }
 
+// reseta as variaveis do quizz atual
+function resetAttributes() {
+  currentQuizz;
+  arrayQuizzes;
+  idCurrentQuestion = 0;
+  percentage = 0;
+  score = 0;
+}
+
+// not implemented
+function restartQuizz() {
+  resetAttributes();
+
+  let reset;
+
+  reset = document.querySelectorAll('.correct-option');
+  reset.forEach((element) => {
+    element.classList.remove('correct-option');
+  });
+
+  reset = document.querySelectorAll('.validated-option');
+  reset.forEach((element) => {
+    element.classList.remove('validated-option');
+  });
+
+  reset = document.querySelectorAll('.not-selected');
+  reset.forEach((element) => {
+    element.classList.remove('not-selected');
+  });
+
+  document.querySelector('.result-box').classList.add('hide');
+  document.querySelector('.buttons').classList.add('hide');
+
+  document
+    .querySelector('.banner-quizz')
+    .scrollIntoView({ behavior: 'smooth' });
+}
+
+function gotoHome() {
+  screenContainer.innerHTML = '';
+  resetAttributes();
+  getAllQuizzes();
+}
+
 //quizz creation
 
 let newQuizzTitle;
@@ -278,34 +322,41 @@ let newQuizzLevels;
 
 //quizz creation - basic information
 function quizzCreationBasic() {
-    newQuizzTitle = document.querySelector(".form-questions :nth-child(1)").value;
-    newQuizzUrl = document.querySelector(".form-questions :nth-child(2)").value;
-    newQuizzQuestions = document.querySelector(".form-questions :nth-child(3)").value;
-    newQuizzLevels = document.querySelector(".form-questions :nth-child(4)").value;
-    if (newQuizzTitle.length < 20 || newQuizzTitle > 65)
-        alert("O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres");
-    else if(newQuizzUrl.slice(0, 8) !== "https://" && newQuizzUrl.slice(0, 7) !== "http://")
-        alert(`A URL da imagem deve iniciar com http:// ou https://`);
-    else if(newQuizzQuestions < 3)
-        alert("O quizz deve possuir no mínimo 3 perguntas");
-    else if(newQuizzLevels < 2)
-        alert("O quizz deve possuir no mínimo 2 níveis");
-    else
-        renderQuestionsPage();
+  newQuizzTitle = document.querySelector('.form-questions :nth-child(1)').value;
+  newQuizzUrl = document.querySelector('.form-questions :nth-child(2)').value;
+  newQuizzQuestions = document.querySelector(
+    '.form-questions :nth-child(3)'
+  ).value;
+  newQuizzLevels = document.querySelector(
+    '.form-questions :nth-child(4)'
+  ).value;
+  if (newQuizzTitle.length < 20 || newQuizzTitle > 65)
+    alert('O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres');
+  else if (
+    newQuizzUrl.slice(0, 8) !== 'https://' &&
+    newQuizzUrl.slice(0, 7) !== 'http://'
+  )
+    alert(`A URL da imagem deve iniciar com http:// ou https://`);
+  else if (newQuizzQuestions < 3)
+    alert('O quizz deve possuir no mínimo 3 perguntas');
+  else if (newQuizzLevels < 2) alert('O quizz deve possuir no mínimo 2 níveis');
+  else renderQuestionsPage();
 }
 
 function hideQuestionDetails(element) {
-    element.querySelector(".field-header").querySelector("img").classList.toggle("hide");
-    element.querySelector(".user-input").classList.toggle("hide");
+  element
+    .querySelector('.field-header')
+    .querySelector('img')
+    .classList.toggle('hide');
+  element.querySelector('.user-input').classList.toggle('hide');
 }
 
 function renderQuestionsPage() {
-    document.querySelector(".new-quizz-basic-information").classList.add("hide");
-    document.querySelector(".new-quizz-questions").classList.remove("hide");
-    document.querySelector(".new-questions").innerHTML = "";
-    for(let i = 1; i <= newQuizzQuestions; i++)
-    {
-        document.querySelector(".new-questions").innerHTML += `
+  document.querySelector('.new-quizz-basic-information').classList.add('hide');
+  document.querySelector('.new-quizz-questions').classList.remove('hide');
+  document.querySelector('.new-questions').innerHTML = '';
+  for (let i = 1; i <= newQuizzQuestions; i++) {
+    document.querySelector('.new-questions').innerHTML += `
         <div class="form-questions" onclick="hideQuestionDetails(this)">
             <div class="field-header">
                 <h3>Pergunta ${i}</h3>
@@ -328,12 +379,13 @@ function renderQuestionsPage() {
                 <input placeholder="URL da imagem 3"/> 
             </div>
         </div>
-        `
-        console.log(document.querySelector(".new-questions :nth-child(1)"));
-        if(i === 1)
-            hideQuestionDetails(document.querySelector(".new-questions :nth-child(1)"));
-    }
-
+        `;
+    console.log(document.querySelector('.new-questions :nth-child(1)'));
+    if (i === 1)
+      hideQuestionDetails(
+        document.querySelector('.new-questions :nth-child(1)')
+      );
+  }
 }
 
 function comparador() {

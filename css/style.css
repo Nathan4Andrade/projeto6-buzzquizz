@@ -28,6 +28,7 @@ header h1 {
   font-weight: 700;
   font-size: 37px;
   line-height: 43px;
+  cursor: pointer;
 
   color: #ffffff;
 }
@@ -298,7 +299,35 @@ img {
   margin-left: 21px;
 }
 
+.btn-restart {
+  width: 260px;
+  height: 52px;
+  border-radius: 15px;
+  background-color: #EC362D;
+  font-weight: 400;
+  font-size: 21px;
+  color: #FFF5F4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 57px auto 10px auto;
+  cursor: pointer;
+}
 
+.goto-home {
+  width: 260px;
+  height: 52px;
+  border-radius: 15px;
+  background-color: transparent;
+  font-weight: 400;
+  font-size: 21px;
+  color: #818181;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  cursor: pointer;
+}
 
 /* Create quizz page */
 
