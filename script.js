@@ -3,6 +3,9 @@ axios.defaults.headers.common['Authorization'] = 'BtXNJoiFoeQE4oiiOTK7wiYj';
 let currentQuizz; // define o quizz escolhido para responder
 let screenContainer = document.querySelector('.screen'); // define uma variavel que armazena o conteudo atual da tela
 let arrayQuizzes; // lista de quizzes
+let idCurrentQuestion = 0;
+let percentage = 0;
+let score = 0;
 
 getAllQuizzes(); //inicia a aplicação realizando um get de todos os quizzes e enviando no promise.then a renderização
 
@@ -83,6 +86,7 @@ function displayQuizz(quizz) {
   generateQuestions();
 }
 
+// gera o banner do quizz de acordo com a imagem e o titulo
 function generateBanner() {
   screenContainer.innerHTML += `
     <div class="banner-quizz">
@@ -92,6 +96,7 @@ function generateBanner() {
     `;
 }
 
+// gera as perguntas do quiz de acordo com a quantidade
 function generateQuestions() {
   for (let i = 0; i < currentQuizz.questions.length; i++) {
     screenContainer.innerHTML += `
@@ -110,12 +115,13 @@ function generateQuestions() {
   }
 
   screenContainer.innerHTML += `
-        <div class="question-container result-box hidden"></div>
+        <div class="question-container result-box hide"></div>
     `;
 
   generateButtons();
 }
 
+// gera as opçoes do quizz a partir do ID da pergunta
 function generateOptions(questionID) {
   let divOptions = document.querySelector(`.screen .options${questionID}`);
 
@@ -123,6 +129,8 @@ function generateOptions(questionID) {
   answers = answers.sort(comparador);
 
   for (let i = 0; i < answers.length; i++) {
+    // se a resposta atual for a correta ele vai criar ela com a classe
+    // `option correct`
     if (answers[i].isCorrectAnswer) {
       divOptions.innerHTML += `
             <div class="option correct" onclick="selectOption(this)">
@@ -130,6 +138,7 @@ function generateOptions(questionID) {
                 <p>${answers[i].text}</p>
             </div>
         `;
+      // se a resposta não for a correta, só vai gerar com a classe option
     } else {
       divOptions.innerHTML += `
             <div class="option" onclick="selectOption(this)">
@@ -139,13 +148,112 @@ function generateOptions(questionID) {
         `;
     }
   }
-
+  // vai retornar a divOptions para ser usada na função de gerar perguntas
   return divOptions;
 }
 
+// comportamento de respostas
+
+function selectOption(option) {
+  let options = option.parentNode.querySelectorAll('.option');
+  let selected = option.parentNode.querySelector('.not-selected');
+
+  if (selected === null && isCurrentQuestion(option)) {
+    options.forEach((element) => {
+      if (element !== option) {
+        element.classList.add('not-selected');
+      }
+    });
+
+    checkAsnwer(option, options);
+  }
+}
+
+function checkAsnwer(option, options) {
+  let correctAnswer = option.parentNode.querySelector('.option.correct');
+
+  options.forEach((element) => {
+    if (element === correctAnswer) {
+      element.classList.add('correct-option');
+    } else {
+      element.classList.add('validated-option');
+    }
+  });
+
+  if (correctAnswer === option) {
+    score++;
+  }
+}
+
+function isCurrentQuestion(option) {
+  let currentQuestion = option.parentNode.parentNode.querySelector(
+    `.questions.question${idCurrentQuestion}`
+  );
+
+  if (currentQuestion !== null) {
+    idCurrentQuestion++;
+
+    let nextQuestion = document.querySelector(`.question${idCurrentQuestion}`);
+    console.log(idCurrentQuestion);
+    setTimeout(function () {
+      if (idCurrentQuestion === currentQuizz.questions.length) {
+        generateResultBox();
+        document.querySelector('.result-box').classList.remove('hide');
+        document.querySelector('.buttons').classList.remove('hide');
+
+        document
+          .querySelector('.result-box')
+          .scrollIntoView({ behavior: 'smooth' });
+      } else {
+        nextQuestion.parentNode.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 2000);
+
+    return currentQuestion;
+  }
+}
+
+// finalização do quizz
+
+function generateResultBox() {
+  let questionBox = document.querySelector('.question-container.result-box');
+
+  let level = currentQuizz.levels[checkLevel()];
+
+  let title = level.title;
+  let img = level.image;
+  let description = level.text;
+
+  questionBox.innerHTML = `
+          <div class="question${currentQuizz.questions.length}">
+              <p>${percentage}% de acerto: ${title}</p>
+          </div>
+          <div class="container-box">
+              <img src="${img}">
+              <p>${description}</p>
+          </div>
+  `;
+}
+
+function checkLevel() {
+  percentage = Math.round((score / currentQuizz.questions.length) * 100);
+
+  let levels = currentQuizz.levels;
+
+  for (let i = levels.length - 1; i >= 0; i--) {
+    let minValue = currentQuizz.levels[i].minValue;
+
+    if (percentage >= minValue) {
+      return i;
+    }
+  }
+}
+
+// navegação após o quizz
+
 function generateButtons() {
   screenContainer.innerHTML += `
-        <div class="buttons hidden">
+        <div class="buttons hide">
             <div class="btn-restart" onclick="restartQuizz()">
                 <p>Reiniciar Quizz</p>
             </div>
@@ -158,33 +266,40 @@ function generateButtons() {
 
 //quizz creation
 
-newQuizzTitle = document.querySelector(".new-quizz-title").value;
-newQuizzUrl = document.querySelector(".new-quizz-url").value;
-newQuizzQuestions = document.querySelector(".new-quizz-questions-number").value;
-newQuizzLevels = document.querySelector(".new-quizz-levels-number").value;
+newQuizzTitle = document.querySelector('.new-quizz-title').value;
+newQuizzUrl = document.querySelector('.new-quizz-url').value;
+newQuizzQuestions = document.querySelector('.new-quizz-questions-number').value;
+newQuizzLevels = document.querySelector('.new-quizz-levels-number').value;
 
 //quizz creation - basic information
 function quizzCreationBasic() {
-    const newQuizzTitle = document.querySelector(".new-quizz-title").value;
-    const newQuizzUrl = document.querySelector(".new-quizz-url").value;
-    const newQuizzQuestions = document.querySelector(".new-quizz-questions-number").value;
-    const newQuizzLevels = document.querySelector(".new-quizz-levels-number").value;
-    if (newQuizzTitle.length < 20 || newQuizzTitle > 65)
-        alert("O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres");
-    else if(newQuizzUrl.slice(0, 8) !== "https://" && newQuizzUrl.slice(0, 7) !== "http://")
-        alert(`A URL da imagem deve iniciar com http:// ou https://`);
-    else if(newQuizzQuestions < 3)
-        alert("O quizz deve possuir no mínimo 3 perguntas");
-    else if(newQuizzLevels < 2)
-        alert("O quizz deve possuir no mínimo 2 níveis");
-    else
-        renderQuestionsPage();
+  const newQuizzTitle = document.querySelector('.new-quizz-title').value;
+  const newQuizzUrl = document.querySelector('.new-quizz-url').value;
+  const newQuizzQuestions = document.querySelector(
+    '.new-quizz-questions-number'
+  ).value;
+  const newQuizzLevels = document.querySelector(
+    '.new-quizz-levels-number'
+  ).value;
+  if (newQuizzTitle.length < 20 || newQuizzTitle > 65)
+    alert('O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres');
+  else if (
+    newQuizzUrl.slice(0, 8) !== 'https://' &&
+    newQuizzUrl.slice(0, 7) !== 'http://'
+  )
+    alert(`A URL da imagem deve iniciar com http:// ou https://`);
+  else if (newQuizzQuestions < 3)
+    alert('O quizz deve possuir no mínimo 3 perguntas');
+  else if (newQuizzLevels < 2) alert('O quizz deve possuir no mínimo 2 níveis');
+  else renderQuestionsPage();
 }
 
 function renderQuestionsPage() {
-    document.querySelector(".new-quizz-basic-information").classList.add("hide");
-    document.querySelector(".new-quizz-questions").classList.remove("hide");
-    document.querySelector(".new-quizz-questions").querySelector("form").innerHTML = `
+  document.querySelector('.new-quizz-basic-information').classList.add('hide');
+  document.querySelector('.new-quizz-questions').classList.remove('hide');
+  document
+    .querySelector('.new-quizz-questions')
+    .querySelector('form').innerHTML = `
     <div class="form-questions">
         <h3>Pergunta 1</h3>
         <input placeholder="Texto da pergunta" class="question-text"/>
@@ -202,10 +317,8 @@ function renderQuestionsPage() {
         <input placeholder="Resposta incorreta 3" class="wrong-answer-3"/>
         <input placeholder="URL da imagem 3" class="url-wrong-answer-3"/>  
     </div>
-    `
-
+    `;
 }
-
 
 function comparador() {
   return Math.random() - 0.5;
