@@ -20,14 +20,14 @@
     </header>
     <main>
       <div class="screen">
-        <div class="quizzes-user">
-          <div class="your-quizzes">
-            <h2>Seus Quizzes</h2>
-            <ion-icon
-              name="add-circle"
-              class="novo-quizz"
-              onclick="showForm()"
-            ></ion-icon>
+        <div class="quizzes-user hide">
+            <div class="your-quizzes">
+              <h2>Seus Quizzes</h2>
+              <ion-icon
+                name="add-circle"
+                class="novo-quizz"
+                onclick="showForm()"
+              ></ion-icon>
           </div>
           <div class="no-quizz">
             <p>Você não criou nenhum quizz ainda :(</p>
@@ -40,16 +40,24 @@
         </div>
       </div>
       <div class="create-quizz hide">
-        <h2>Comece pelo começo</h2>
-        <form>
-          <div class="form-questions">
-            <input placeholder="Título do seu quizz" />
-            <input placeholder="URL da imagem do seu quizz" />
-            <input placeholder="Quantidade de perguntas do quizz" />
-            <input placeholder="Quantidade de níveis do quizz" />
-          </div>
-          <button type="submit">Prosseguir pra criar perguntas</button>
-        </form>
+        <div class="new-quizz-basic-information">
+          <h2>Comece pelo começo</h2>
+          <form>
+            <div class="form-questions">
+              <input placeholder="Título do seu quizz" class="new-quizz-title"/>
+              <input placeholder="URL da imagem do seu quizz" class="new-quizz-url"/>
+              <input placeholder="Quantidade de perguntas do quizz" class="new-quizz-questions-number"/>
+              <input placeholder="Quantidade de níveis do quizz" class="new-quizz-levels-number"/>
+            </div>
+            <button type="button" onclick="quizzCreationBasic()">Prosseguir pra criar perguntas</button>
+          </form>
+        </div>
+        <div class="new-quizz-questions hide">
+          <h2>Crie suas perguntas</h2>
+          <form>
+            <button type="button" onclick="quizzCreationBasic()">Prosseguir pra criar níveis</button>
+          </form>
+        </div>
       </div>
     </main>
     <footer></footer>

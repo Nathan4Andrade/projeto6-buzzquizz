@@ -83,6 +83,7 @@ img {
   border: 1px dashed #ec362d;
   border-radius: 50px;
   margin-bottom: 33px;
+  background: #fafafa;
 }
 
 .your-quizzes {
@@ -248,7 +249,8 @@ img {
   color: #000000;
 }
 
-/* tela 3 */
+/* Create quizz page */
+
 .create-quizz {
   display: flex;
   flex-direction: column;
@@ -283,6 +285,8 @@ img {
   border-radius: 5px;
   margin-bottom: 9px;
   padding-left: 23px;
+  font-size: 19px;
+  line-height: 22px;
 }
 
 .create-quizz ::placeholder {
@@ -300,6 +304,7 @@ img {
   font-size: 20px;
   line-height: 23px;
   text-align: center;
+  margin-top: 71px;
 }
 
 .create-quizz button {
@@ -358,4 +363,6 @@ img {
   .form-questions {
     width: 375px;
   }
+
 }
+
