@@ -154,6 +154,7 @@ function generateOptions(questionID) {
 
 // comportamento de respostas
 
+// seleciona a opção de acordo com a escolha do usuário através do click
 function selectOption(option) {
   let options = option.parentNode.querySelectorAll('.option');
   let selected = option.parentNode.querySelector('.not-selected');
@@ -169,6 +170,7 @@ function selectOption(option) {
   }
 }
 
+// verifica se a opção escolhida pelo usuário está correta ou não
 function checkAsnwer(option, options) {
   let correctAnswer = option.parentNode.querySelector('.option.correct');
 
@@ -185,6 +187,7 @@ function checkAsnwer(option, options) {
   }
 }
 
+// verifica se o usuário está respondendo a pergunta atual
 function isCurrentQuestion(option) {
   let currentQuestion = option.parentNode.parentNode.querySelector(
     `.questions.question${idCurrentQuestion}`
@@ -215,6 +218,7 @@ function isCurrentQuestion(option) {
 
 // finalização do quizz
 
+// gera a caixa de resultado de acordo com o nível
 function generateResultBox() {
   let questionBox = document.querySelector('.question-container.result-box');
 
@@ -235,6 +239,7 @@ function generateResultBox() {
   `;
 }
 
+// verifica o nivel de acordo com os acertos e erros do quizz
 function checkLevel() {
   percentage = Math.round((score / currentQuizz.questions.length) * 100);
 
