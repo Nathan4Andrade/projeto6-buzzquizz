@@ -271,58 +271,69 @@ function generateButtons() {
 
 //quizz creation
 
-newQuizzTitle = document.querySelector('.new-quizz-title').value;
-newQuizzUrl = document.querySelector('.new-quizz-url').value;
-newQuizzQuestions = document.querySelector('.new-quizz-questions-number').value;
-newQuizzLevels = document.querySelector('.new-quizz-levels-number').value;
+let newQuizzTitle;
+let newQuizzUrl;
+let newQuizzQuestions;
+let newQuizzLevels;
 
 //quizz creation - basic information
 function quizzCreationBasic() {
-  const newQuizzTitle = document.querySelector('.new-quizz-title').value;
-  const newQuizzUrl = document.querySelector('.new-quizz-url').value;
-  const newQuizzQuestions = document.querySelector(
-    '.new-quizz-questions-number'
-  ).value;
-  const newQuizzLevels = document.querySelector(
-    '.new-quizz-levels-number'
-  ).value;
-  if (newQuizzTitle.length < 20 || newQuizzTitle > 65)
-    alert('O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres');
-  else if (
-    newQuizzUrl.slice(0, 8) !== 'https://' &&
-    newQuizzUrl.slice(0, 7) !== 'http://'
-  )
-    alert(`A URL da imagem deve iniciar com http:// ou https://`);
-  else if (newQuizzQuestions < 3)
-    alert('O quizz deve possuir no mínimo 3 perguntas');
-  else if (newQuizzLevels < 2) alert('O quizz deve possuir no mínimo 2 níveis');
-  else renderQuestionsPage();
+    newQuizzTitle = document.querySelector(".form-questions :nth-child(1)").value;
+    newQuizzUrl = document.querySelector(".form-questions :nth-child(2)").value;
+    newQuizzQuestions = document.querySelector(".form-questions :nth-child(3)").value;
+    newQuizzLevels = document.querySelector(".form-questions :nth-child(4)").value;
+    if (newQuizzTitle.length < 20 || newQuizzTitle > 65)
+        alert("O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres");
+    else if(newQuizzUrl.slice(0, 8) !== "https://" && newQuizzUrl.slice(0, 7) !== "http://")
+        alert(`A URL da imagem deve iniciar com http:// ou https://`);
+    else if(newQuizzQuestions < 3)
+        alert("O quizz deve possuir no mínimo 3 perguntas");
+    else if(newQuizzLevels < 2)
+        alert("O quizz deve possuir no mínimo 2 níveis");
+    else
+        renderQuestionsPage();
+}
+
+function hideQuestionDetails(element) {
+    element.querySelector(".field-header").querySelector("img").classList.toggle("hide");
+    element.querySelector(".user-input").classList.toggle("hide");
 }
 
 function renderQuestionsPage() {
-  document.querySelector('.new-quizz-basic-information').classList.add('hide');
-  document.querySelector('.new-quizz-questions').classList.remove('hide');
-  document
-    .querySelector('.new-quizz-questions')
-    .querySelector('form').innerHTML = `
-    <div class="form-questions">
-        <h3>Pergunta 1</h3>
-        <input placeholder="Texto da pergunta" class="question-text"/>
-        <input placeholder="Cor de fundo da pergunta" class="question-background-color"/>
-        <h3>Resposta correta</h3>
-        <input placeholder="Resposta correta" class="right-answer"/>
-        <input placeholder="URL da imagem" class="url-right-answer"/>
-        <h3>Respostas incorretas</h3>
-        <input placeholder="Resposta incorreta 1" class="wrong-answer-1"/>
-        <input placeholder="URL da imagem 1" class="url-wrong-answer-1"/>
-        <br>
-        <input placeholder="Resposta incorreta 2" class="wrong-answer-2"/>
-        <input placeholder="URL da imagem 2" class="url-wrong-answer-2"/>
-        <br>    
-        <input placeholder="Resposta incorreta 3" class="wrong-answer-3"/>
-        <input placeholder="URL da imagem 3" class="url-wrong-answer-3"/>  
-    </div>
-    `;
+    document.querySelector(".new-quizz-basic-information").classList.add("hide");
+    document.querySelector(".new-quizz-questions").classList.remove("hide");
+    document.querySelector(".new-questions").innerHTML = "";
+    for(let i = 1; i <= newQuizzQuestions; i++)
+    {
+        document.querySelector(".new-questions").innerHTML += `
+        <div class="form-questions" onclick="hideQuestionDetails(this)">
+            <div class="field-header">
+                <h3>Pergunta ${i}</h3>
+                <img src="assets/edit.png"/>
+            </div>
+            <div class="user-input hide">
+                <input placeholder="Texto da pergunta"/>
+                <input placeholder="Cor de fundo da pergunta"/>
+                <h3>Resposta correta</h3>
+                <input placeholder="Resposta correta"/>
+                <input placeholder="URL da imagem"/>
+                <h3>Respostas incorretas</h3>
+                <input placeholder="Resposta incorreta 1"/>
+                <input placeholder="URL da imagem 1"/>
+                <br><br>
+                <input placeholder="Resposta incorreta 2"/>
+                <input placeholder="URL da imagem 2"/>
+                <br><br>  
+                <input placeholder="Resposta incorreta 3"/>
+                <input placeholder="URL da imagem 3"/> 
+            </div>
+        </div>
+        `
+        console.log(document.querySelector(".new-questions :nth-child(1)"));
+        if(i === 1)
+            hideQuestionDetails(document.querySelector(".new-questions :nth-child(1)"));
+    }
+
 }
 
 function comparador() {
