@@ -391,3 +391,15 @@ function renderQuestionsPage() {
 function comparador() {
   return Math.random() - 0.5;
 }
+
+// quizz creation: success
+let justCreatedQuizz;
+
+function goToHomepage(){
+
+}
+// ainda não funciona pq não criei a função do ID
+function goToQuizz(){
+  getQuizz(justCreatedQuizz.id);
+  document.querySelector(".quizz-creation-success").style.display="none";
+}
