@@ -351,18 +351,20 @@ function hideQuestionDetails(element) {
   element.querySelector('.user-input').classList.toggle('hide');
 }
 
+//questions page
+
 function renderQuestionsPage() {
   document.querySelector('.new-quizz-basic-information').classList.add('hide');
   document.querySelector('.new-quizz-questions').classList.remove('hide');
   document.querySelector('.new-questions').innerHTML = '';
   for (let i = 1; i <= newQuizzQuestions; i++) {
-    document.querySelector('.new-questions').innerHTML += `
-        <div class="form-questions" onclick="hideQuestionDetails(this)">
-            <div class="field-header">
+    document.querySelector('.new-questions').innerHTML += 
+    `   <div class="form-questions">
+            <div class="field-header" onclick="hideQuestionDetails(this.parentElement)">
                 <h3>Pergunta ${i}</h3>
                 <img src="assets/edit.png"/>
             </div>
-            <div class="user-input hide">
+            <div class="user-input question-${i} hide">
                 <input placeholder="Texto da pergunta"/>
                 <input placeholder="Cor de fundo da pergunta"/>
                 <h3>Resposta correta</h3>
@@ -378,14 +380,112 @@ function renderQuestionsPage() {
                 <input placeholder="Resposta incorreta 3"/>
                 <input placeholder="URL da imagem 3"/> 
             </div>
-        </div>
-        `;
-    console.log(document.querySelector('.new-questions :nth-child(1)'));
+        </div>`;
     if (i === 1)
       hideQuestionDetails(
         document.querySelector('.new-questions :nth-child(1)')
       );
   }
+}
+
+
+//questions validation
+let questions = [];
+let textQuestion;
+let colorQuestion;
+function questionsValidation() {
+  questions = [];
+  for(let i = 1; i <= newQuizzQuestions; i++) {
+    let question;
+    let questionObject;
+    const answers = [];
+    question = document.querySelector(`.question-${i}`);
+    textQuestion = question.querySelector(":nth-child(1)").value;
+    if(textQuestion.length < 20)
+    {
+      alert("As perguntas devem possuir no mínimo 20 caracteres.");
+      return ;
+    }
+    colorQuestion = question.querySelector(":nth-child(2)").value;
+    if(!hexadecimalValidation(colorQuestion))
+    {
+      alert("A cor deve estar em formato hexadecimal.");
+      return ;
+    }
+    let text = question.querySelector(":nth-child(4)").value;
+    if (text.length === 0)
+    {
+      alert("O texto da resposta correta não pode estar vazio.");
+      return ;
+    }
+    let urlImage = question.querySelector(":nth-child(5)").value;
+    if (!urlValidation(urlImage))
+    {
+      alert("Insira uma url de imagem válida para as respostas corretas");
+      return ;     
+    }
+    let answer = {
+      image: urlImage,
+      text: text,
+      isCorrectAnswer: true
+    };
+    answers.push(answer);
+    for(let j = 7; j < 16; j = j + 4)
+    {
+      text = question.querySelector(`:nth-child(${j})`).value;
+      urlImage = question.querySelector(`:nth-child(${j + 1})`).value
+      if(text!="" && urlImage!="" && urlValidation(urlImage))
+      {
+        answer = {
+          image: urlImage,
+          text: text,
+          isCorrectAnswer: false
+        }; 
+        answers.push(answer);
+      }
+      else if (urlImage != "" || text)
+      {
+        alert("Verifique se não está faltando nenhum texto ou url nas respostas incorretas.");
+        return ;
+      }
+      else if (urlImage != "" && !urlValidation(urlImage))
+      {
+        alert("A url inserida na resposta incorreta não é válida.");
+        return ;
+      }
+    }
+    if(answers.length < 2)
+    {
+      alert("Deve ser informada no minimo uma resposta incorreta. (texto e url)")
+      return ;
+    }
+    questionObject = {
+      answers : answers,
+      color : colorQuestion,
+      title : textQuestion,
+    }
+    questions.push(questionObject);
+  }
+  console.log(questions);
+}
+
+function hexadecimalValidation(colorQuestion) {
+  if (colorQuestion.length != 7)
+    return false;
+  else if (colorQuestion[0] !== "#")
+    return false;
+  for (let i = 1; i < colorQuestion.length; i++)
+  {
+    if(!("abcdefABCDEF0123456789".includes(colorQuestion[i])))
+      return false;
+  }
+  return true;
+}
+
+function urlValidation(url) {
+  if (url.slice(0, 8) !== 'https://' && url.slice(0, 7) !== 'http://')
+    return false;
+  return true;
 }
 
 function comparador() {
