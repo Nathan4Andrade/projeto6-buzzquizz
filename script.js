@@ -473,12 +473,12 @@ function questionsValidation() {
 }
 
 
-const levels = [];
+let levels = [];
 function levelsValidation() {
   let level;
   let levelObject;
   let levelZero = 0;
-  const levels = [];
+  levels = [];
   for(let i = 1; i <= newQuizzLevels; i++) {
     level = document.querySelector(`.level-${i}`);
     let title = level.querySelector(":nth-child(1)").value;
@@ -531,7 +531,7 @@ function sendQuizzServer() {
     questions: questions,
     levels: levels
   }
-  console.log(quizz);
+  console.log(userQuizz);
   const quizzCreationPromise = axios.post("https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes", userQuizz);
   quizzCreationPromise.then(quizzCreationSuccess);
   quizzCreationPromise.catch(quizzCreationError);
