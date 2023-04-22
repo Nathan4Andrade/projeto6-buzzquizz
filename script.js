@@ -78,6 +78,21 @@ function getQuizz(id) {
   promise.then(displayQuizz);
 }
 
+// recebe o Id do Quizz Criado, e adiciona no LocalStorage
+function addIdToLocalStorage(id) {
+  if (typeof(Storage) !== "undefined") {
+    let userids = JSON.parse(localStorage.getItem("userids")) || [];
+    if (!userids.includes(id)) {
+      userids.push(id);
+      localStorage.setItem("userids", JSON.stringify(userids));
+    }
+  } else {
+    console.log("LocalStorage não disponível. Criando um novo...");
+    let userids = [id];
+    localStorage.setItem("userids", JSON.stringify(userids));
+  }
+}
+
 //exibe o quizz de acordo com o id (Tela 2 de acordo com o figma)
 function displayQuizz(quizz) {
   currentQuizz = quizz.data;
@@ -311,6 +326,7 @@ function gotoHome() {
   screenContainer.innerHTML = '';
   resetAttributes();
   getAllQuizzes();
+  location.reload();
 }
 
 //quizz creation
@@ -395,9 +411,6 @@ function comparador() {
 // quizz creation: success
 let justCreatedQuizz;
 
-function goToHomepage(){
-
-}
 // ainda não funciona pq não criei a função do ID
 function goToQuizz(){
   getQuizz(justCreatedQuizz.id);
