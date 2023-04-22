@@ -357,7 +357,7 @@ img {
   margin-top: 27px;
 }
 
-.new-quizz-questions .form-questions {
+.new-quizz-questions .form-questions,  .new-quizz-levels .form-questions {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -367,7 +367,7 @@ img {
   margin-top: 36px;
 }
 
-.new-quizz-questions input {
+.new-quizz-questions input,  .new-quizz-levels input {
   margin-bottom: 14px;
 }
 

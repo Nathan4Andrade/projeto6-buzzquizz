@@ -391,9 +391,10 @@ function renderQuestionsPage() {
 
 //questions validation
 let questions = [];
-let textQuestion;
-let colorQuestion;
+
 function questionsValidation() {
+  let textQuestion;
+  let colorQuestion;
   questions = [];
   for(let i = 1; i <= newQuizzQuestions; i++) {
     let question;
@@ -467,6 +468,47 @@ function questionsValidation() {
     questions.push(questionObject);
   }
   console.log(questions);
+  renderLevelsPage();
+}
+
+
+const levels = [];
+function levelsValidation() {
+  let level;
+  let levelObject;
+  const levels = [];
+  for(let i = 1; i <= newQuizzLevels; i++) {
+    level = document.querySelector(`.level-${i}`);
+    let title = level.querySelector(":nth-child(1)").value;
+    let percentage = level.querySelector(":nth-child(2)").value;
+    let levelUrl = level.querySelector(":nth-child(3)").value;
+    let description = level.querySelector(":nth-child(4)").value;
+  }
+}
+
+function renderLevelsPage() {
+  document.querySelector('.new-quizz-questions').classList.add('hide');
+  document.querySelector('.new-quizz-levels').classList.remove('hide'); 
+  document.querySelector('.new-levels').innerHTML = '';
+  for (let i = 1; i <= newQuizzLevels; i++) {
+    document.querySelector('.new-levels').innerHTML += 
+    `   <div class="form-questions">
+            <div class="field-header" onclick="hideQuestionDetails(this.parentElement)">
+                <h3>Nível ${i}</h3>
+                <img src="assets/edit.png"/>
+            </div>
+            <div class="user-input level-${i} hide">
+                <input placeholder="Título do nível"/>
+                <input placeholder="% de acerto mínima"/>
+                <input placeholder="URL da imagem do nível"/>
+                <input placeholder="Descrição do nível"/>
+            </div>
+        </div>`;
+    if (i === 1)
+      hideQuestionDetails(
+        document.querySelector('.new-levels :nth-child(1)')
+      );
+  }
 }
 
 function hexadecimalValidation(colorQuestion) {
