@@ -324,12 +324,13 @@ let newQuizzLevels;
 function quizzCreationBasic() {
   newQuizzTitle = document.querySelector('.form-questions :nth-child(1)').value;
   newQuizzUrl = document.querySelector('.form-questions :nth-child(2)').value;
-  newQuizzQuestions = document.querySelector(
+  newQuizzQuestions = parseInt(document.querySelector(
     '.form-questions :nth-child(3)'
-  ).value;
-  newQuizzLevels = document.querySelector(
+  ).value);
+  newQuizzLevels = parseInt(document.querySelector(
     '.form-questions :nth-child(4)'
-  ).value;
+  ).value);
+  console.log(newQuizzQuestions);
   if (newQuizzTitle.length < 20 || newQuizzTitle > 65)
     alert('O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres');
   else if (
@@ -337,9 +338,9 @@ function quizzCreationBasic() {
     newQuizzUrl.slice(0, 7) !== 'http://'
   )
     alert(`A URL da imagem deve iniciar com http:// ou https://`);
-  else if (newQuizzQuestions < 3)
+  else if (newQuizzQuestions < 3 || isNaN(newQuizzQuestions))
     alert('O quizz deve possuir no mínimo 3 perguntas');
-  else if (newQuizzLevels < 2) alert('O quizz deve possuir no mínimo 2 níveis');
+  else if (newQuizzLevels < 2 || isNaN(newQuizzLevels)) alert('O quizz deve possuir no mínimo 2 níveis');
   else renderQuestionsPage();
 }
 
@@ -438,8 +439,8 @@ function questionsValidation() {
       if(text!="" && urlImage!="" && urlValidation(urlImage))
       {
         answer = {
-          image: urlImage,
           text: text,
+          image: urlImage,
           isCorrectAnswer: false
         }; 
         answers.push(answer);
@@ -461,9 +462,9 @@ function questionsValidation() {
       return ;
     }
     questionObject = {
-      answers : answers,
-      color : colorQuestion,
       title : textQuestion,
+      color : colorQuestion,
+      answers : answers,
     }
     questions.push(questionObject);
   }
@@ -476,14 +477,73 @@ const levels = [];
 function levelsValidation() {
   let level;
   let levelObject;
+  let levelZero = 0;
   const levels = [];
   for(let i = 1; i <= newQuizzLevels; i++) {
     level = document.querySelector(`.level-${i}`);
     let title = level.querySelector(":nth-child(1)").value;
-    let percentage = level.querySelector(":nth-child(2)").value;
+    if (title.length < 10)
+    {
+      alert("O título do nível deve ter no mínimo 10 caracteres.")
+      return;
+    }
+    let percentage = parseInt(level.querySelector(":nth-child(2)").value);
+    if (percentage < 0 || percentage > 100 || isNaN(percentage))
+    {
+      alert("A porcentagem de acerto mínima deve ser um número entre 0 e 100.")
+      return;
+    }
+    if (percentage === 0)
+      levelZero++;
     let levelUrl = level.querySelector(":nth-child(3)").value;
+    if(!urlValidation(levelUrl))
+    {
+      alert("A url inserida na resposta incorreta não é válida.")
+      return;
+    }      
     let description = level.querySelector(":nth-child(4)").value;
+    if (description.length < 30)
+    {
+      alert("A descrição do nível deve ter no mínimo 30 caracteres.")
+      return;
+    }
+    levelObject = {
+      title : title,
+      image : levelUrl,
+      text : description,
+      minValue : percentage
+    }
+    levels.push(levelObject);
   }
+  if(levelZero === 0)
+  {
+    alert("É obrigatório existir pelo menos um nível cuja porcentagem de acerto mínima seja 0%");
+    return ;
+  }
+  console.log(levels);
+  sendQuizzServer();
+}
+
+function sendQuizzServer() {
+  const userQuizz = {
+    title: newQuizzTitle,
+    image: newQuizzUrl,
+    questions: questions,
+    levels: levels
+  }
+  console.log(quizz);
+  const quizzCreationPromise = axios.post("https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes", userQuizz);
+  quizzCreationPromise.then(quizzCreationSuccess);
+  quizzCreationPromise.catch(quizzCreationError);
+}
+
+function quizzCreationSuccess(data) {
+  console.log("Quizz criado com sucesso!");
+  console.log(data);
+}
+
+function quizzCreationError(error) {
+  console.log(error);
 }
 
 function renderLevelsPage() {
