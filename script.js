@@ -78,21 +78,6 @@ function getQuizz(id) {
   promise.then(displayQuizz);
 }
 
-// recebe o Id do Quizz Criado, e adiciona no LocalStorage
-function addIdToLocalStorage(id) {
-  if (typeof(Storage) !== "undefined") {
-    let userids = JSON.parse(localStorage.getItem("userids")) || [];
-    if (!userids.includes(id)) {
-      userids.push(id);
-      localStorage.setItem("userids", JSON.stringify(userids));
-    }
-  } else {
-    console.log("LocalStorage não disponível. Criando um novo...");
-    let userids = [id];
-    localStorage.setItem("userids", JSON.stringify(userids));
-  }
-}
-
 //exibe o quizz de acordo com o id (Tela 2 de acordo com o figma)
 function displayQuizz(quizz) {
   currentQuizz = quizz.data;
@@ -212,7 +197,6 @@ function isCurrentQuestion(option) {
     idCurrentQuestion++;
 
     let nextQuestion = document.querySelector(`.question${idCurrentQuestion}`);
-    console.log(idCurrentQuestion);
     setTimeout(function () {
       if (idCurrentQuestion === currentQuizz.questions.length) {
         generateResultBox();
@@ -346,7 +330,6 @@ function quizzCreationBasic() {
   newQuizzLevels = parseInt(document.querySelector(
     '.form-questions :nth-child(4)'
   ).value);
-  console.log(newQuizzQuestions);
   if (newQuizzTitle.length < 20 || newQuizzTitle > 65)
     alert('O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres');
   else if (
@@ -358,6 +341,7 @@ function quizzCreationBasic() {
     alert('O quizz deve possuir no mínimo 3 perguntas');
   else if (newQuizzLevels < 2 || isNaN(newQuizzLevels)) alert('O quizz deve possuir no mínimo 2 níveis');
   else renderQuestionsPage();
+
 }
 
 function hideQuestionDetails(element) {
@@ -425,11 +409,11 @@ function questionsValidation() {
       return ;
     }
     colorQuestion = question.querySelector(":nth-child(2)").value;
-    if(!hexadecimalValidation(colorQuestion))
+      if(!hexadecimalValidation(colorQuestion))
     {
       alert("A cor deve estar em formato hexadecimal.");
       return ;
-    }
+    } 
     let text = question.querySelector(":nth-child(4)").value;
     if (text.length === 0)
     {
@@ -484,10 +468,8 @@ function questionsValidation() {
     }
     questions.push(questionObject);
   }
-  console.log(questions);
   renderLevelsPage();
 }
-
 
 let levels = [];
 function levelsValidation() {
@@ -536,7 +518,6 @@ function levelsValidation() {
     alert("É obrigatório existir pelo menos um nível cuja porcentagem de acerto mínima seja 0%");
     return ;
   }
-  console.log(levels);
   sendQuizzServer();
 }
 
@@ -547,16 +528,11 @@ function sendQuizzServer() {
     questions: questions,
     levels: levels
   }
-  console.log(userQuizz);
   const quizzCreationPromise = axios.post("https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes", userQuizz);
   quizzCreationPromise.then(quizzCreationSuccess);
   quizzCreationPromise.catch(quizzCreationError);
 }
 
-function quizzCreationSuccess(data) {
-  console.log("Quizz criado com sucesso!");
-  console.log(data);
-}
 
 function quizzCreationError(error) {
   console.log(error);
@@ -615,6 +591,30 @@ let justCreatedQuizz;
 
 // ainda não funciona pq não criei a função do ID
 function goToQuizz(){
-  getQuizz(justCreatedQuizz.id);
-  document.querySelector(".quizz-creation-success").style.display="none";
+  getQuizz(justCreatedQuizz);
+  document.querySelector(".quizz-creation-success").style.display="flex";
+}
+
+// recebe o Id do Quizz Criado, e adiciona no LocalStorage
+function addIdToLocalStorage(id) {
+  if (typeof(Storage) !== "undefined") {
+    let userids = JSON.parse(localStorage.getItem("userids")) || [];
+    if (!userids.includes(id)) {
+      userids.push(id);
+      localStorage.setItem("userids", JSON.stringify(userids));
+    }
+  } else {
+    console.log("LocalStorage não disponível. Criando um novo...");
+    let userids = [id];
+    localStorage.setItem("userids", JSON.stringify(userids));
+  }
+}
+
+// quando o quizz é criado, a função é chamada com os dados recebidos pelo axios 
+function quizzCreationSuccess(data) {
+  console.log("Quizz criado com sucesso!");
+  console.log("ID: ", data.data.id);
+  let quizzID = data.data.id;
+  justCreatedQuizz = quizzID;
+  addIdToLocalStorage(quizzID);
 }
