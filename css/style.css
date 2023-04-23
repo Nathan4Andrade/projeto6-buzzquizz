@@ -20,7 +20,7 @@ header {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 10;
 }
 
 header h1 {
@@ -448,9 +448,10 @@ img {
 }
 
 .quizz-creation-success{
-  z-index: 999;
-  margin-top: 69px;
-  height: 718px;
+  width: 100%;
+  z-index: 9;
+  margin-top: 0px;
+  height: 900px;
   display: none;
   align-items: center;
   justify-content: center;
