@@ -487,7 +487,7 @@ img {
   border-radius: 5px; 
 }
 
-.quizz-creation-success .access-quiz{
+.quizz-creation-success .access-quiz button{
   position: absolute;
   width: 13%;
   height: 44px;
@@ -497,7 +497,7 @@ img {
   border-radius: 15px;
 }
 
-.quizz-creation-success .go-to-homepage{
+.quizz-creation-success .go-to-homepage button{
   position: absolute;
   width: 15%;
   height: 44px;
