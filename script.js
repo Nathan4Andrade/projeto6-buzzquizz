@@ -665,4 +665,18 @@ function getAllLocalQuizz() {
       serialQuizz = localStorage.getItem(localStorage.key(i));
       listMyQuizzes.push(JSON.parse(serialQuizz));
   }
+  getMyQuizzes(listMyQuizzes);
+}
+
+function getMyQuizzes(listMyQuizzes) {
+  getAllQuizzesLocais();
+  let quizzesUser = document.querySelector(".your-quizzes");
+  for (let i = 0; i < listMyQuizzes.length; i++) {
+      myQuizzes.innerHTML += `               
+      <article class="data${i}" onclick="getQuizz(${listMyQuizzes[i].id})">
+          <h3>${listMyQuizzes[i].title}</h3>
+      </article>`
+      let oneQuizz = document.querySelector(`.data${i}`);
+      oneQuizz.style.backgroundImage = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url('${listMyQuizzes[i].image}')`;
+  }
 }
