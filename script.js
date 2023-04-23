@@ -622,11 +622,10 @@ function quizzCreationSuccess(data) {
   document.getElementById("qcs").style.display="flex";
   document.querySelector('.create-quizz').classList.add('hide'); 
   const screenQCS = document.querySelector(".quizz-creation-success");
-  renderQuizzCreationSucess(screenQCS, pics);
-
+  renderQuizzCreationSuccess(screenQCS, pics);
 }
 
-function renderQuizzCreationSuccess() {
+function renderQuizzCreationSuccess(screenQCS, pics) {
   screenQCS.innerHTML = `
       <h1>Seu quizz está pronto!</h1>
       <figure class="quizz-finish-creation"></figure>
@@ -637,6 +636,33 @@ function renderQuizzCreationSuccess() {
           <p>Voltar pra home</p>
       </button>    
   `;
-  screenQCS.querySelector("figure").background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("${pics}");`;
-  
+  screenQCS.querySelector("figure").style.background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("${pics}")`;
+}
+
+
+function saveMyQuizzLocalStorage(data) {
+  const serialQuizz = JSON.stringify(data);
+  localStorage.setItem(data.data.id, serialQuizz);
+}
+
+function getMyLocalQuizz(data) {
+  const serialQuizz = localStorage.getItem(data.data.id);
+  const myQuizz = JSON.parse(serialQuizz);
+
+  return myQuizz;
+}
+
+function getMyLastLocalQuizz(data) {
+  const serialQuizz = localStorage.getItem(data.data.id);
+  const myQuizz = JSON.parse(serialQuizz);
+
+return myQuizz;
+}
+
+function getAllLocalQuizz() {
+  let serialQuizz;
+  for (let i = 0; i < localStorage.length; i++) {
+      serialQuizz = localStorage.getItem(localStorage.key(i));
+      listMyQuizzes.push(JSON.parse(serialQuizz));
+  }
 }
