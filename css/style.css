@@ -448,6 +448,7 @@ img {
 }
 
 .quizz-creation-success{
+  z-index: 999;
   margin-top: 69px;
   height: 718px;
   display: none;
