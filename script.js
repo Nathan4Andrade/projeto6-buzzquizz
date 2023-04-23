@@ -617,4 +617,10 @@ function quizzCreationSuccess(data) {
   let quizzID = data.data.id;
   justCreatedQuizz = quizzID;
   addIdToLocalStorage(quizzID);
+
+  //aparecer o meu css aqui
+
+
+
+
 }
