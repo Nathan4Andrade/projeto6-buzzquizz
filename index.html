@@ -44,12 +44,12 @@
           <h2>Comece pelo começo</h2>
           <form>
             <div class="form-questions">
-              <input placeholder="Título do seu quizz"/>
-              <input placeholder="URL da imagem do seu quizz"/>
-              <input placeholder="Quantidade de perguntas do quizz"/>
-              <input placeholder="Quantidade de níveis do quizz"/>
+              <input placeholder="Título do seu quizz" data-test="title-input"/>
+              <input placeholder="URL da imagem do seu quizz" data-test="img-input"/>
+              <input placeholder="Quantidade de perguntas do quizz" test="questions-amount-input"/>
+              <input placeholder="Quantidade de níveis do quizz" data-test="levels-amount-input"/>
             </div>
-            <button type="button" onclick="quizzCreationBasic()">Prosseguir pra criar perguntas</button>
+            <button type="button" onclick="quizzCreationBasic()" data-test="go-create-questions">Prosseguir pra criar perguntas</button>
           </form>
         </div>
         <div class="new-quizz-questions hide">
@@ -57,7 +57,7 @@
           <form>
             <div class="new-questions">
             </div>
-            <button type="button" onclick="questionsValidation()">Prosseguir pra criar níveis</button>
+            <button type="button" onclick="questionsValidation()" data-test="go-create-levels">Prosseguir pra criar níveis</button>
           </form>
         </div>
         <div class="new-quizz-levels hide">
@@ -65,7 +65,7 @@
           <form>
             <div class="new-levels">
             </div>
-            <button type="button" onclick="levelsValidation()">Finalizar Quizz</button>
+            <button type="button" onclick="levelsValidation()" data-test="finish">Finalizar Quizz</button>
           </form>
         </div>
         <div class="quizz-creation-success">

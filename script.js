@@ -18,7 +18,7 @@ function showForm() {
 // get todos os quizzes da api
 function getAllQuizzes() {
   let promise = axios.get(
-    'https://mock-api.driven.com.br/api/vs/buzzquizz/quizzes'
+    'https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes'
   );
   promise.then(renderAllQuizzes);
 }
@@ -73,7 +73,7 @@ function renderHomeScreen() {
 // get quizz da api de acordo pelo id
 function getQuizz(id) {
   let promise = axios.get(
-    `https://mock-api.driven.com.br/api/vs/buzzquizz/quizzes/${id}`
+    `https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes/${id}`
   );
   promise.then(displayQuizz);
 }
@@ -360,26 +360,26 @@ function renderQuestionsPage() {
   document.querySelector('.new-questions').innerHTML = '';
   for (let i = 1; i <= newQuizzQuestions; i++) {
     document.querySelector('.new-questions').innerHTML += 
-    `   <div class="form-questions">
+    `   <div class="form-questions" data-test="question-ctn">
             <div class="field-header" onclick="hideQuestionDetails(this.parentElement)">
                 <h3>Pergunta ${i}</h3>
-                <img src="assets/edit.png"/>
+                <img src="assets/edit.png" data-test="toggle"/>
             </div>
             <div class="user-input question-${i} hide">
-                <input placeholder="Texto da pergunta"/>
-                <input placeholder="Cor de fundo da pergunta"/>
+                <input placeholder="Texto da pergunta"/ data-test="question-input">
+                <input placeholder="Cor de fundo da pergunta" data-test="question-color-input"/>
                 <h3>Resposta correta</h3>
-                <input placeholder="Resposta correta"/>
-                <input placeholder="URL da imagem"/>
+                <input placeholder="Resposta correta" data-test="correct-answer-input"/>
+                <input placeholder="URL da imagem" data-test="correct-img-input"/>
                 <h3>Respostas incorretas</h3>
-                <input placeholder="Resposta incorreta 1"/>
-                <input placeholder="URL da imagem 1"/>
+                <input placeholder="Resposta incorreta 1" data-test="wrong-answer-input"/>
+                <input placeholder="URL da imagem 1" data-test="wrong-img-input"/>
                 <br><br>
-                <input placeholder="Resposta incorreta 2"/>
-                <input placeholder="URL da imagem 2"/>
+                <input placeholder="Resposta incorreta 2" data-test="wrong-answer-input"/>
+                <input placeholder="URL da imagem 2" data-test="wrong-img-input"/>
                 <br><br>  
-                <input placeholder="Resposta incorreta 3"/>
-                <input placeholder="URL da imagem 3"/> 
+                <input placeholder="Resposta incorreta 3" data-test="wrong-answer-input"/>
+                <input placeholder="URL da imagem 3" data-test="wrong-img-input"/> 
             </div>
         </div>`;
     if (i === 1)
@@ -544,16 +544,16 @@ function renderLevelsPage() {
   document.querySelector('.new-levels').innerHTML = '';
   for (let i = 1; i <= newQuizzLevels; i++) {
     document.querySelector('.new-levels').innerHTML += 
-    `   <div class="form-questions">
-            <div class="field-header" onclick="hideQuestionDetails(this.parentElement)">
+    `   <div class="form-questions" data-test="level-ctn">
+            <div class="field-header" onclick="hideQuestionDetails(this.parentElement)" data-test="toggle">
                 <h3>Nível ${i}</h3>
                 <img src="assets/edit.png"/>
             </div>
             <div class="user-input level-${i} hide">
-                <input placeholder="Título do nível"/>
-                <input placeholder="% de acerto mínima"/>
-                <input placeholder="URL da imagem do nível"/>
-                <input placeholder="Descrição do nível"/>
+                <input placeholder="Título do nível" data-test="level-input"/>
+                <input placeholder="% de acerto mínima" data-test="level-percent-input"/>
+                <input placeholder="URL da imagem do nível" data-test="level-img-input"/>
+                <input placeholder="Descrição do nível" class="level-description" data-test="level-description-input"/>
             </div>
         </div>`;
     if (i === 1)

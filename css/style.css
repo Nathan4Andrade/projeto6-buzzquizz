@@ -387,6 +387,8 @@ img {
 .field-header img{
   width: 26px;
   height: 23px;
+  margin-bottom: 12px;
+  margin-top: 27px;
 }
 
 .create-quizz h3 {
@@ -514,15 +516,43 @@ img {
 
   .create-quizz form button {
     width: 324px;
+    height: 54px;
   }
+
+  .create-quizz button {
+    margin-top: 28px;
+    font-size: 18px;
+    line-height: 21px;
+  }
+
+  .create-quizz .new-quizz-questions button {
+    margin-top: 46px;
+  }
+
   .form,
   .create-quizz {
     width: 100%;
   }
 
-  .form-questions {
+  .form-questions, .user-input, .new-quizz-questions, .field-header, .user-input h3 {
     width: 375px;
   }
+
+  .field-header, .user-input h3 {
+    padding-left: 17px;
+    padding-right: 26px;
+  }
+
+  .create-quizz .new-levels .level-description{
+    height: 177px;
+  }
+
+  .create-quizz h2 {
+    margin-top: 38px;
+    font-size: 20px;
+    line-height: 23px;
+  }
+
 
 }
 
