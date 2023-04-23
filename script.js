@@ -28,18 +28,35 @@ function getAllQuizzes() {
 function renderAllQuizzes(resp) {
   renderHomeScreen();
   arrayQuizzes = resp.data;
-
+  
+  let usersID=JSON.parse(localStorage.getItem("userids")) || [];
   let quizzGallery = document.querySelector('.all-quizzes .quizz-gallery');
+  let yourQuizzes = document.querySelector('.no-quizz');
+  if(usersID!==[]){
+    yourQuizzes.innerHTML = "";
+    document.querySelector(".no-quizz").style.flexDirection="row";
+  }
 
   for (let i = 0; i < arrayQuizzes.length; i++) {
-    quizzGallery.innerHTML += `
-    <div class="quizz" onclick="getQuizz(${arrayQuizzes[i].id})">
-        <img src="${arrayQuizzes[i].image}">
-        <div class="degrade"></div>
-        <span>${arrayQuizzes[i].title}</span>
-    </div>
-    `;
-  }
+    if(!usersID.includes(arrayQuizzes[i].id)){
+      quizzGallery.innerHTML += `
+      <div class="quizz" onclick="getQuizz(${arrayQuizzes[i].id})">
+          <img src="${arrayQuizzes[i].image}">
+          <div class="degrade"></div>
+          <span>${arrayQuizzes[i].title}</span>
+      </div>
+      `;
+    } 
+    else {
+      yourQuizzes.innerHTML+= `
+      <div class="quizz" onclick="getQuizz(${arrayQuizzes[i].id})">
+          <img src="${arrayQuizzes[i].image}">
+          <div class="degrade"></div>
+          <span>${arrayQuizzes[i].title}</span>
+      </div>
+      `;
+    };
+  };
 }
 
 //renderiza a tela inicial (Tela 1 do Figma)
@@ -589,11 +606,13 @@ function comparador() {
 // quizz creation: success
 let justCreatedQuizz;
 
-// ainda não funciona pq não criei a função do ID
+// FUNÇÃO QUE LEVA PARA O QUIZZ
 function goToQuizz(){
   getQuizz(justCreatedQuizz);
   document.querySelector(".quizz-creation-success").style.display="none";
+  document.querySelector(".screen").style.display="block";
 }
+
 
 // recebe o Id do Quizz Criado, e adiciona no LocalStorage
 function addIdToLocalStorage(id) {
@@ -638,6 +657,9 @@ function renderQuizzCreationSuccess(screenQCS, pics) {
   `;
   screenQCS.querySelector("figure").style.background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("${pics}")`;
 }
+
+
+
 
 
 function saveMyQuizzLocalStorage(data) {
