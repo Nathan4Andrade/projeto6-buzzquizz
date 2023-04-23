@@ -592,7 +592,7 @@ let justCreatedQuizz;
 // ainda não funciona pq não criei a função do ID
 function goToQuizz(){
   getQuizz(justCreatedQuizz);
-  document.querySelector(".quizz-creation-success").style.display="flex";
+  document.querySelector(".quizz-creation-success").style.display="none";
 }
 
 // recebe o Id do Quizz Criado, e adiciona no LocalStorage
@@ -614,10 +614,29 @@ function addIdToLocalStorage(id) {
 function quizzCreationSuccess(data) {
   console.log("Quizz criado com sucesso!");
   console.log("ID: ", data.data.id);
+  console.log(data);
   let quizzID = data.data.id;
   justCreatedQuizz = quizzID;
+  let pics = data.data.image;
   addIdToLocalStorage(quizzID);
   document.getElementById("qcs").style.display="flex";
   document.querySelector('.create-quizz').classList.add('hide'); 
+  const screenQCS = document.querySelector(".quizz-creation-success");
+  renderQuizzCreationSucess(screenQCS, pics);
 
+}
+
+function renderQuizzCreationSuccess() {
+  screenQCS.innerHTML = `
+      <h1>Seu quizz está pronto!</h1>
+      <figure class="quizz-finish-creation"></figure>
+      <button class="access-quizz" onclick="goToQuizz()">
+          <p>Acessar Quizz</p>
+      </button>
+      <button class="go-to-homepage" onclick="gotoHome()">
+          <p>Voltar pra home</p>
+      </button>    
+  `;
+  screenQCS.querySelector("figure").background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("${pics}");`;
+  
 }
