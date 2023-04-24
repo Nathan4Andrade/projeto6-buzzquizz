@@ -27,11 +27,12 @@
                 name="add-circle"
                 class="novo-quizz"
                 onclick="showForm()"
+                data-test="create-btn"
               ></ion-icon>
           </div>
           <div class="no-quizz">
             <p>Você não criou nenhum quizz ainda :(</p>
-            <button type="button" onclick="showForm()">Criar Quizz</button>
+            <button type="button" onclick="showForm()" data-test="create-btn">Criar Quizz</button>
           </div>
         </div>
         <div class="all-quizzes">
@@ -46,7 +47,7 @@
             <div class="form-questions">
               <input placeholder="Título do seu quizz" data-test="title-input"/>
               <input placeholder="URL da imagem do seu quizz" data-test="img-input"/>
-              <input placeholder="Quantidade de perguntas do quizz" test="questions-amount-input"/>
+              <input placeholder="Quantidade de perguntas do quizz" data-test="questions-amount-input"/>
               <input placeholder="Quantidade de níveis do quizz" data-test="levels-amount-input"/>
             </div>
             <button type="button" onclick="quizzCreationBasic()" data-test="go-create-questions">Prosseguir pra criar perguntas</button>
