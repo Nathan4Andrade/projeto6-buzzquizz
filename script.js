@@ -32,7 +32,7 @@ function checkIdInUserIds(userids, x) {
 function renderAllQuizzes(resp) {
   renderHomeScreen();
   arrayQuizzes = resp.data;
-  let usersID = JSON.parse(localStorage.getItem('useridsobject')) || [];
+  let usersID = JSON.parse(localStorage.getItem('ids')) || [];
   let quizzGallery = document.querySelector('.all-quizzes .quizz-gallery');
   let yourQuizzes = document.querySelector('.no-quizz');
   if (usersID.length == 0 ) {
@@ -612,10 +612,10 @@ function goToQuizz() {
 
 function addIdToLocalStorage(id) {
   if (typeof Storage !== 'undefined') {
-    let userids = JSON.parse(localStorage.getItem('useridsobject')) || [];
+    let userids = JSON.parse(localStorage.getItem('ids')) || [];
     if (!userids.some(obj => obj.id === id)) {
       userids.push({ id });
-      localStorage.setItem('useridsobject', JSON.stringify(userids));
+      localStorage.setItem('ids', JSON.stringify(userids));
     }
   } else {
     console.log('LocalStorage não disponível. Criando um novo...');
