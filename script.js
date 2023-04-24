@@ -48,7 +48,7 @@ function renderAllQuizzes(resp) {
       `;
     } else {
       yourQuizzes.innerHTML += `
-      <div class="quizz space"  onclick="getQuizz(${arrayQuizzes[i].id})">
+      <div class="quizz space"  onclick="getQuizz(${arrayQuizzes[i].id})" data-test="my-quiz">
           <img src="${arrayQuizzes[i].image}">
           <div class="degrade"></div>
           <span>${arrayQuizzes[i].title}</span>
