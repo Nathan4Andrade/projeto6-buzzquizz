@@ -51,7 +51,7 @@ img {
 
 .no-quizz {
   width: 1051px;
-  height: 181px;
+  height: 185px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -59,6 +59,21 @@ img {
   margin-right: auto;
   border: 1px dashed #d5d5d5;
   border-radius: 5px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.space{
+  margin-top: 15px;
+}
+.no-quizz::-webkit-scrollbar{
+  background-color: transparent;
+  height: 3px;
+}
+.no-quizz::-webkit-scrollbar-thumb{
+  background-color: transparent;
+  height: 3px;
+
 }
 
 .no-quizz p {
