@@ -23,17 +23,19 @@ function getAllQuizzes() {
   promise.then(renderAllQuizzes);
 }
 
+function checkIdInUserIds(userids, x) {
+  return userids.some(obj => obj.id === x);
+}
+
 // renderiza todos os quizzes
 // não está renderizando o do usuário pois ainda não foi feito o local storage
 function renderAllQuizzes(resp) {
   renderHomeScreen();
   arrayQuizzes = resp.data;
-  let usersID = JSON.parse(localStorage.getItem('userids')) || [];
+  let usersID = JSON.parse(localStorage.getItem('useridsobject')) || [];
   let quizzGallery = document.querySelector('.all-quizzes .quizz-gallery');
   let yourQuizzes = document.querySelector('.no-quizz');
   if (usersID.length == 0 ) {
-    document.querySelector('.h2-your-quizzes').style.display='none';
-    document.querySelector('.button-plus').style.display='none';
     yourQuizzes.innerHTML = `
     <p>Você não criou nenhum quizz ainda :(</p>
     <button type="button" onclick="showForm()" data-test="create-btn">Criar Quizz</button>
@@ -45,7 +47,7 @@ function renderAllQuizzes(resp) {
   }
   
   for (let i = 0; i < arrayQuizzes.length; i++) {
-    if (!usersID.includes(arrayQuizzes[i].id)) {
+    if (!checkIdInUserIds(usersID ,arrayQuizzes[i].id)) {
       quizzGallery.innerHTML += `
       <div class="quizz" onclick="getQuizz(${arrayQuizzes[i].id})" data-test="others-quiz">
           <img src="${arrayQuizzes[i].image}">
@@ -607,7 +609,22 @@ function goToQuizz() {
 }
 
 // recebe o Id do Quizz Criado, e adiciona no LocalStorage
+
 function addIdToLocalStorage(id) {
+  if (typeof Storage !== 'undefined') {
+    let userids = JSON.parse(localStorage.getItem('useridsobject')) || [];
+    if (!userids.some(obj => obj.id === id)) {
+      userids.push({ id });
+      localStorage.setItem('useridsobject', JSON.stringify(userids));
+    }
+  } else {
+    console.log('LocalStorage não disponível. Criando um novo...');
+    let userids = [{ id }];
+    localStorage.setItem('userids', JSON.stringify(userids));
+  }
+}
+
+/* function addIdToLocalStorage(id) {
   if (typeof Storage !== 'undefined') {
     let userids = JSON.parse(localStorage.getItem('userids')) || [];
     if (!userids.includes(id)) {
@@ -619,7 +636,9 @@ function addIdToLocalStorage(id) {
     let userids = [id];
     localStorage.setItem('userids', JSON.stringify(userids));
   }
-}
+} */
+
+
 
 // quando o quizz é criado, a função é chamada com os dados recebidos pelo axios
 function quizzCreationSuccess(data) {
