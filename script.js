@@ -28,7 +28,7 @@ function getAllQuizzes() {
 function renderAllQuizzes(resp) {
   renderHomeScreen();
   arrayQuizzes = resp.data;
-  let usersID = JSON.parse(localStorage.getItem('userids'));
+  let usersID = JSON.parse(localStorage.getItem('userids')) || [];
   let quizzGallery = document.querySelector('.all-quizzes .quizz-gallery');
   let yourQuizzes = document.querySelector('.no-quizz');
   if (usersID.length == 0 ) {
@@ -37,7 +37,7 @@ function renderAllQuizzes(resp) {
     <button type="button" onclick="showForm()" data-test="create-btn">Criar Quizz</button>
     `;
   }
-  if (usersID.length > 1) {
+  if (usersID.length > 0) {
     yourQuizzes.innerHTML = '';
     document.querySelector('.no-quizz').style.flexDirection = 'row';
   }
