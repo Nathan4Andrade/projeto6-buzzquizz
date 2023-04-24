@@ -622,18 +622,21 @@ function quizzCreationSuccess(data) {
   let quizzID = data.data.id;
   justCreatedQuizz = quizzID;
   let pics = data.data.image;
+  let nam = data.data.title;
   addIdToLocalStorage(quizzID);
   document.getElementById('qcs').style.display = 'flex';
   document.querySelector('.create-quizz').classList.add('hide');
   const screenQCS = document.querySelector('.quizz-creation-success');
-  renderQuizzCreationSuccess(screenQCS, pics);
+  renderQuizzCreationSuccess(screenQCS, pics, nam);
 }
 
-function renderQuizzCreationSuccess(screenQCS, pics) {
+function renderQuizzCreationSuccess(screenQCS, pics, nam) {
   window.scrollTo(0, 0);
   screenQCS.innerHTML = `
       <h1>Seu quizz está pronto!</h1>
-      <figure data-test="success-banner" class="quizz-finish-creation"></figure>
+      <figure data-test="success-banner" class="quizz-finish-creation">
+        <p class="p-banner">${nam}</p>
+      </figure>
       <button data-test="go-quiz" class="access-quizz" onclick="goToQuizz()">
           <p>Acessar Quizz</p>
       </button>
