@@ -692,6 +692,10 @@ img {
     font-size: 19px;
     line-height: 22px;
   }
+  .quizz-creation-success figure {
+    width: 340px;
+    height: 181px;
+  }
 
   .question-container {
     width: 100%;
@@ -751,7 +755,9 @@ img {
     margin-top: 20px;
     overflow-wrap: anywhere;
   }
-
+  .p-banner{
+    margin-top: 127px;
+  }
   .container-box p {
     font-weight: 700;
     font-size: 17px;

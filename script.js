@@ -42,6 +42,7 @@ function renderAllQuizzes(resp) {
     `;
   }
   if (usersID.length > 0) {
+  
     yourQuizzes.innerHTML = '';
     document.querySelector('.no-quizz').style.flexDirection = 'row';
   }
