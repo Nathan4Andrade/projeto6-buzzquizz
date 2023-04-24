@@ -158,7 +158,7 @@ function generateOptions(questionID) {
       // se a resposta não for a correta, só vai gerar com a classe option
     } else {
       divOptions.innerHTML += `
-            <div class="option" onclick="selectOption(this)">
+            <div data-test=my-quiz class="option" onclick="selectOption(this)">
                 <img src="${answers[i].image}">
                 <p>${answers[i].text}</p>
             </div>
@@ -648,11 +648,11 @@ function renderQuizzCreationSuccess(screenQCS, pics) {
   window.scrollTo(0, 0);
   screenQCS.innerHTML = `
       <h1>Seu quizz está pronto!</h1>
-      <figure class="quizz-finish-creation"></figure>
-      <button class="access-quizz" onclick="goToQuizz()">
+      <figure data-test="success-banner" class="quizz-finish-creation"></figure>
+      <button data-test="go-quiz" class="access-quizz" onclick="goToQuizz()">
           <p>Acessar Quizz</p>
       </button>
-      <button class="go-to-homepage" onclick="gotoHome()">
+      <button data-test="go-home" class="go-to-homepage" onclick="gotoHome()">
           <p>Voltar pra home</p>
       </button>    
   `;
