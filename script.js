@@ -645,6 +645,7 @@ function quizzCreationSuccess(data) {
 }
 
 function renderQuizzCreationSuccess(screenQCS, pics) {
+  window.scrollTo(0, 0);
   screenQCS.innerHTML = `
       <h1>Seu quizz está pronto!</h1>
       <figure class="quizz-finish-creation"></figure>
@@ -656,57 +657,4 @@ function renderQuizzCreationSuccess(screenQCS, pics) {
       </button>    
   `;
   screenQCS.querySelector("figure").style.background = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url("${pics}")`;
-}
-
-
-
-
-
-function saveMyQuizzLocalStorage(data) {
-  const serialQuizz = JSON.stringify(data);
-  localStorage.setItem(data.data.id, serialQuizz);
-}
-
-function getMyLocalQuizz(data) {
-  const serialQuizz = localStorage.getItem(data.data.id);
-  const myQuizz = JSON.parse(serialQuizz);
-
-  return myQuizz;
-}
-
-function getMyLastLocalQuizz(data) {
-  const serialQuizz = localStorage.getItem(data.data.id);
-  const myQuizz = JSON.parse(serialQuizz);
-
-return myQuizz;
-}
-
-function getAllLocalQuizz() {
-  let serialQuizz;
-  for (let i = 0; i < localStorage.length; i++) {
-      serialQuizz = localStorage.getItem(localStorage.key(i));
-      listMyQuizzes.push(JSON.parse(serialQuizz));
-  }
-  getMyQuizzes(listMyQuizzes);
-}
-
-function getMyQuizzes(listMyQuizzes) {
-  getAllQuizzesLocais();
-  let quizzesUser = document.querySelector(".your-quizzes");
-  for (let i = 0; i < listMyQuizzes.length; i++) {
-      myQuizzes.innerHTML += `               
-      <article class="data${i}" onclick="getQuizz(${listMyQuizzes[i].id})">
-          <h3>${listMyQuizzes[i].title}</h3>
-      </article>`
-      let oneQuizz = document.querySelector(`.data${i}`);
-      oneQuizz.style.backgroundImage = `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%), url('${listMyQuizzes[i].image}')`;
-  }
-}
-
-
-function gettheQuizz(here) {
-  identificador = here;
-  const promise = axios.get("https://mock-api.driven.com.br/api/vm/buzzquizz/quizzes/" + identificador);
-  promise.then(openQuizz);
-  promise.catch(error);
 }
