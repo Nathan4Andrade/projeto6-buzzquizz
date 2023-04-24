@@ -159,7 +159,7 @@ function generateOptions(questionID) {
       divOptions.innerHTML += `
             <div data-test=my-quiz class="option" onclick="selectOption(this)">
                 <img src="${answers[i].image}">
-                <p>${answers[i].text}</p>
+                <p data-test="answer-text">${answers[i].text}</p>
             </div>
         `;
     }
