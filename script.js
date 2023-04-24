@@ -158,7 +158,7 @@ function generateOptions(questionID) {
       // se a resposta não for a correta, só vai gerar com a classe option
     } else {
       divOptions.innerHTML += `
-            <div data-test=my-quiz class="option" onclick="selectOption(this)" data-test="answer">
+            <div class="option" onclick="selectOption(this)" data-test="answer">
                 <img src="${answers[i].image}">
                 <p data-test="answer-text">${answers[i].text}</p>
             </div>
