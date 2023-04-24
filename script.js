@@ -71,11 +71,12 @@ function renderHomeScreen() {
                 name="add-circle"
                 class="novo-quizz"
                 onclick="showForm()"
+                data-test="create-btn"
                 ></ion-icon>
             </div>
             <div class="no-quizz">
                 <p>Você não criou nenhum quizz ainda :(</p>
-                <button type="button" onclick="showForm()">Criar Quizz</button>
+                <button type="button" onclick="showForm()" data-test="create-btn">Criar Quizz</button>
             </div>
         </div>
         <div class="all-quizzes">
