@@ -275,7 +275,7 @@ function checkLevel() {
 function generateButtons() {
   screenContainer.innerHTML += `
         <div class="buttons hide">
-            <div class="btn-restart" onclick="restartQuizz() data-test="restart">
+            <div class="btn-restart" onclick="restartQuizz()" data-test="restart">
                 <p>Reiniciar Quizz</p>
             </div>
             <div class="goto-home" onclick="gotoHome()" data-test="go-home">
