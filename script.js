@@ -33,7 +33,7 @@ function renderAllQuizzes(resp) {
 
   for (let i = 0; i < arrayQuizzes.length; i++) {
     quizzGallery.innerHTML += `
-    <div class="quizz" onclick="getQuizz(${arrayQuizzes[i].id})">
+    <div class="quizz" onclick="getQuizz(${arrayQuizzes[i].id})" data-test="others-quiz">
         <img src="${arrayQuizzes[i].image}">
         <div class="degrade"></div>
         <span>${arrayQuizzes[i].title}</span>
