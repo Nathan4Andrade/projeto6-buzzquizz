@@ -347,7 +347,7 @@ function quizzCreationBasic() {
   newQuizzLevels = parseInt(
     document.querySelector('.form-questions :nth-child(4)').value
   );
-  if (newQuizzTitle.length < 20 || newQuizzTitle > 65)
+  if (newQuizzTitle.length < 20 || newQuizzTitle.length > 65)
     alert('O título do quizz deve ter no mínimo 20 e no máximo 65 caracteres');
   else if (
     newQuizzUrl.slice(0, 8) !== 'https://' &&
