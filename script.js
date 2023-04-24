@@ -32,6 +32,8 @@ function renderAllQuizzes(resp) {
   let quizzGallery = document.querySelector('.all-quizzes .quizz-gallery');
   let yourQuizzes = document.querySelector('.no-quizz');
   if (usersID.length == 0 ) {
+    document.querySelector('.h2-your-quizzes').style.display='none';
+    document.querySelector('.button-plus').style.display='none';
     yourQuizzes.innerHTML = `
     <p>Você não criou nenhum quizz ainda :(</p>
     <button type="button" onclick="showForm()" data-test="create-btn">Criar Quizz</button>
