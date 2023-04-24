@@ -330,6 +330,8 @@ function restartQuizz() {
   document
     .querySelector('.banner-quizz')
     .scrollIntoView({ behavior: 'smooth' });
+
+  window.scrollTo(0, 0);
 }
 
 function gotoHome() {
