@@ -28,15 +28,20 @@ function getAllQuizzes() {
 function renderAllQuizzes(resp) {
   renderHomeScreen();
   arrayQuizzes = resp.data;
-
-  let usersID = JSON.parse(localStorage.getItem('userids')) || [];
+  let usersID = JSON.parse(localStorage.getItem('userids'));
   let quizzGallery = document.querySelector('.all-quizzes .quizz-gallery');
   let yourQuizzes = document.querySelector('.no-quizz');
-  if (usersID !== []) {
+  if (usersID.length == 0 ) {
+    yourQuizzes.innerHTML = `
+    <p>Você não criou nenhum quizz ainda :(</p>
+    <button type="button" onclick="showForm()" data-test="create-btn">Criar Quizz</button>
+    `;
+  }
+  if (usersID.length > 1) {
     yourQuizzes.innerHTML = '';
     document.querySelector('.no-quizz').style.flexDirection = 'row';
   }
-
+  
   for (let i = 0; i < arrayQuizzes.length; i++) {
     if (!usersID.includes(arrayQuizzes[i].id)) {
       quizzGallery.innerHTML += `
