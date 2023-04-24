@@ -40,7 +40,7 @@ function renderAllQuizzes(resp) {
   for (let i = 0; i < arrayQuizzes.length; i++) {
     if (!usersID.includes(arrayQuizzes[i].id)) {
       quizzGallery.innerHTML += `
-      <div class="quizz" onclick="getQuizz(${arrayQuizzes[i].id})">
+      <div class="quizz" onclick="getQuizz(${arrayQuizzes[i].id})" data-test="others-quiz">
           <img src="${arrayQuizzes[i].image}">
           <div class="degrade"></div>
           <span>${arrayQuizzes[i].title}</span>
@@ -48,7 +48,7 @@ function renderAllQuizzes(resp) {
       `;
     } else {
       yourQuizzes.innerHTML += `
-      <div class="quizz space" onclick="getQuizz(${arrayQuizzes[i].id})" data-test="others-quiz">
+      <div class="quizz space"  onclick="getQuizz(${arrayQuizzes[i].id})">
           <img src="${arrayQuizzes[i].image}">
           <div class="degrade"></div>
           <span>${arrayQuizzes[i].title}</span>
@@ -117,8 +117,8 @@ function generateQuestions() {
   for (let i = 0; i < currentQuizz.questions.length; i++) {
     screenContainer.innerHTML += `
         <div class="question-container" data-test="question">
-            <div class="question${i} questions" >
-                <p data-test="question-title">${currentQuizz.questions[i].title}</p>
+            <div class="question${i} questions" data-test="question-title">
+                <p >${currentQuizz.questions[i].title}</p>
             </div>
             <div class="options${i} options">
             </div>
